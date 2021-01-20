@@ -315,7 +315,7 @@ namespace NeoFS.API.v2.Session {
         public const int OwnerIdFieldNumber = 1;
         private global::NeoFS.API.v2.Refs.OwnerID ownerId_;
         /// <summary>
-        /// Dession initiating user's or node's key derived `OwnerID`.
+        /// Session initiating user's or node's key derived `OwnerID`
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public global::NeoFS.API.v2.Refs.OwnerID OwnerId {

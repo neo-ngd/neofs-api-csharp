@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NeoFS.API.v2.Cryptography;
 using System;
+using System.Threading;
 
 namespace NeoFS.API.v2.UnitTests.FSClient
 {
@@ -13,7 +14,9 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(host, key);
-            var ni = client.LocalNodeInfo();
+            var source = new CancellationTokenSource();
+            source.CancelAfter(TimeSpan.FromMinutes(1));
+            var ni = client.LocalNodeInfo(source.Token);
             Console.WriteLine(ni.ToString());
         }
 
@@ -23,7 +26,9 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(host, key);
-            var epoch = client.Epoch();
+            var source = new CancellationTokenSource();
+            source.CancelAfter(TimeSpan.FromMinutes(1));
+            var epoch = client.Epoch(source.Token);
             Console.WriteLine(epoch);
         }
     }

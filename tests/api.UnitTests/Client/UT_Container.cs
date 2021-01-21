@@ -4,6 +4,7 @@ using NeoFS.API.v2.Cryptography;
 using NeoFS.API.v2.Netmap;
 using NeoFS.API.v2.Refs;
 using System;
+using System.Threading;
 
 namespace NeoFS.API.v2.UnitTests.FSClient
 {
@@ -26,7 +27,9 @@ namespace NeoFS.API.v2.UnitTests.FSClient
                 BasicAcl = (uint)BasicAcl.PublicBasicRule,
                 PlacementPolicy = policy,
             };
-            var cid = client.PutContainer(container);
+            var source = new CancellationTokenSource();
+            source.CancelAfter(10000);
+            var cid = client.PutContainer(source.Token, container);
             Console.WriteLine(cid.ToBase58String());
             Assert.AreEqual(container.CalCulateAndGetID, cid);
         }
@@ -38,7 +41,9 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(host, key);
             var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
-            var container = client.GetContainer(cid);
+            var source = new CancellationTokenSource();
+            source.CancelAfter(10000);
+            var container = client.GetContainer(source.Token, cid);
             Assert.AreEqual(cid, container.CalCulateAndGetID);
         }
 
@@ -49,7 +54,9 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(host, key);
             var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
-            client.DeleteContainer(cid);
+            var source = new CancellationTokenSource();
+            source.CancelAfter(10000);
+            client.DeleteContainer(source.Token, cid);
         }
 
         [TestMethod]
@@ -58,7 +65,9 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(host, key);
-            var cids = client.ListContainers(key.ToOwnerID());
+            var source = new CancellationTokenSource();
+            source.CancelAfter(10000);
+            var cids = client.ListContainers(source.Token, key.ToOwnerID());
             Assert.AreEqual(1, cids.Count);
             Assert.AreEqual("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz", cids[0].ToBase58String());
         }
@@ -70,7 +79,9 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
             var client = new Client.Client(host, key);
-            var eacl = client.GetExtendedACL(cid);
+            var source = new CancellationTokenSource();
+            source.CancelAfter(10000);
+            var eacl = client.GetEACL(source.Token, cid);
             Console.WriteLine(eacl);
         }
 
@@ -104,7 +115,9 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             };
             record.Filters.Add(filter);
             record.Targets.Add(target);
-            client.SetExtendedACL(eacl);
+            var source = new CancellationTokenSource();
+            source.CancelAfter(10000);
+            client.SetEACL(source.Token, eacl);
         }
     }
 }

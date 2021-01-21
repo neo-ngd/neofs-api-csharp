@@ -13,7 +13,7 @@ namespace NeoFS.API.v2.Client
         public Accounting.Decimal GetBalance(OwnerID owner, CallOptions options = null)
         {
             var account_client = new AccountingService.AccountingServiceClient(channel);
-            var opts = ApplyCustomOptions(options);
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new BalanceRequest
             {
                 Body = new BalanceRequest.Types.Body

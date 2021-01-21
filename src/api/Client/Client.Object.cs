@@ -19,7 +19,7 @@ namespace NeoFS.API.v2.Client
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var object_address = param.Address;
-            var opts = ApplyCustomOptions(options);
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new GetRequest
             {
                 Body = new GetRequest.Types.Body
@@ -70,7 +70,7 @@ namespace NeoFS.API.v2.Client
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var obj = param.Object;
             var call = object_client.Put(cancellationToken: context);
-            var opts = ApplyCustomOptions(options);
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req_stream = call.RequestStream;
 
             var req = new PutRequest();
@@ -121,7 +121,7 @@ namespace NeoFS.API.v2.Client
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var object_address = param.Address;
-            var opts = ApplyCustomOptions(options);
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new DeleteRequest
             {
                 Body = new DeleteRequest.Types.Body
@@ -143,7 +143,7 @@ namespace NeoFS.API.v2.Client
         public Object.Object GetObjectHeader(CancellationToken context, ObjectHeaderParams param, CallOptions options = null)
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
-            var opts = ApplyCustomOptions(options);
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var object_address = param.Address;
             var minimal = param.Short;
             var req = new HeadRequest
@@ -208,7 +208,7 @@ namespace NeoFS.API.v2.Client
         public async Task<byte[]> GetObjectPayloadRangeData(CancellationToken context, RangeDataParams param, CallOptions options = null)
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
-            var opts = ApplyCustomOptions(options);
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var object_address = param.Address;
             var range = param.Range;
             var req = new GetRangeRequest
@@ -241,7 +241,7 @@ namespace NeoFS.API.v2.Client
         public List<byte[]> GetObjectPayloadRangeHash(CancellationToken context, RangeChecksumParams param, CallOptions options = null)
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
-            var opts = ApplyCustomOptions(options);
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var object_address = param.Address;
             var req = new GetRangeHashRequest
             {
@@ -267,7 +267,7 @@ namespace NeoFS.API.v2.Client
         public async Task<List<ObjectID>> SearchObject(CancellationToken context, SearchObjectParams param, CallOptions options = null)
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
-            var opts = ApplyCustomOptions(options);
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new SearchRequest
             {
                 Body = new SearchRequest.Types.Body

@@ -26,5 +26,17 @@ namespace NeoFS.API.v2.Client
             if (Bearer != null) meta.BearerToken = Bearer;
             return meta;
         }
+
+        public CallOptions ApplyCustomOptions(CallOptions custom)
+        {
+            if (custom is null) return this;
+            if (custom.Version != null) Version = custom.Version;
+            Ttl = custom.Ttl;
+            Epoch = custom.Epoch;
+            if (custom.XHeaders != null) XHeaders = custom.XHeaders;
+            if (custom.Session != null) Session = custom.Session;
+            if (custom.Bearer != null) Bearer = custom.Bearer;
+            return this;
+        }
     }
 }

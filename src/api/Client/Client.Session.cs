@@ -2,6 +2,7 @@ using NeoFS.API.v2.Acl;
 using NeoFS.API.v2.Cryptography;
 using NeoFS.API.v2.Session;
 using System;
+using System.Threading;
 
 namespace NeoFS.API.v2.Client
 {
@@ -17,7 +18,7 @@ namespace NeoFS.API.v2.Client
             bearer = token;
         }
 
-        public SessionToken CreateSession(ulong expiration, CallOptions option = null)
+        public SessionToken CreateSession(CancellationToken context, ulong expiration, CallOptions option = null)
         {
             var session_client = new SessionService.SessionServiceClient(channel);
             var req = new CreateRequest
@@ -31,7 +32,7 @@ namespace NeoFS.API.v2.Client
             req.MetaHeader = option?.GetRequestMetaHeader() ?? RequestMetaHeader.Default;
             req.SignRequest(key);
 
-            var resp = session_client.Create(req);
+            var resp = session_client.Create(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException("invalid balance response");
             return new SessionToken

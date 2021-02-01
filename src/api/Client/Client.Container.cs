@@ -36,6 +36,7 @@ namespace NeoFS.API.v2.Client
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
 
+            container.Version = Refs.Version.SDKVersion();
             if (container.OwnerId is null) container.OwnerId = key.ToOwnerID();
             var req = new PutRequest
             {

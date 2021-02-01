@@ -3,6 +3,7 @@ using Grpc.Core;
 using NeoFS.API.v2.Client.ObjectParams;
 using NeoFS.API.v2.Cryptography;
 using NeoFS.API.v2.Object;
+using NeoFS.API.v2.Object.Exceptions;
 using NeoFS.API.v2.Refs;
 using NeoFS.API.v2.Session;
 using System;
@@ -56,6 +57,10 @@ namespace NeoFS.API.v2.Client
                             resp.Body.Chunk.CopyTo(payload, offset);
                             offset += resp.Body.Chunk.Length;
                             break;
+                        }
+                    case GetResponse.Types.Body.ObjectPartOneofCase.SplitInfo:
+                        {
+                            throw new SplitInfoException(resp.Body.SplitInfo);
                         }
                     default:
                         throw new FormatException("malformed object get reponse");
@@ -192,6 +197,10 @@ namespace NeoFS.API.v2.Client
                             throw new InvalidOperationException(nameof(GetObjectHeader) + " invalid signature");
                         }
                         break;
+                    }
+                case HeadResponse.Types.Body.HeadOneofCase.SplitInfo:
+                    {
+                        throw new SplitInfoException(resp.Body.SplitInfo);
                     }
                 default:
                     throw new FormatException("malformed object header response");

@@ -9,7 +9,7 @@
     <RootNamespace>NeoFS.API</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
-    <Version>0.0.15</Version>
+    <Version>0.0.16</Version>
   </PropertyGroup>
 
   <ItemGroup>

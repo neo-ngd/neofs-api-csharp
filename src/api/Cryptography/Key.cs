@@ -33,6 +33,18 @@ namespace NeoFS.API.v2.Cryptography
             return point.GetEncoded(false);
         }
 
+        public static byte[] CreateSignatureRedeemScript_obsolete(this byte[] public_key)
+        {
+            if (public_key.Length != CompressedPublicKeyLength)
+                throw new FormatException($"{nameof(CreateSignatureRedeemScript)} argument isn't compressed public key. expected length={CompressedPublicKeyLength}, actual={public_key.Length}");
+            var script = new byte[] { 0x0c, (byte)CompressedPublicKeyLength }; //PUSHDATA1 33
+            script = Concat(script, public_key);
+            script = Concat(script, new byte[] { 0x0b }); //PUSHNULL
+            script = Concat(script, new byte[] { 0x41 }); //SYSCALL
+            script = Concat(script, BitConverter.GetBytes(2014135445u)); //Neo_Crypto_CheckSig
+            return script;
+        }
+
         public static byte[] CreateSignatureRedeemScript(this byte[] public_key)
         {
             if (public_key.Length != CompressedPublicKeyLength)
@@ -74,9 +86,19 @@ namespace NeoFS.API.v2.Cryptography
             return key.PublicKey().PublicKeyToAddress();
         }
 
+        public static string ToAddress_obsolete(this ECDsa key)
+        {
+            return key.PublicKey().PublicKeyToAddress_obsolete();
+        }
+
         public static OwnerID ToOwnerID(this ECDsa key)
         {
             return key.PublicKey().PublicKeyToOwnerID();
+        }
+
+        public static OwnerID ToOwnerID_obsolete(this ECDsa key)
+        {
+            return key.PublicKey().PublicKeyToOwnerID_obsolete();
         }
 
         public static string OwnerIDToAddress(this OwnerID owner)
@@ -100,9 +122,25 @@ namespace NeoFS.API.v2.Cryptography
             return public_key.CreateSignatureRedeemScript().ToScriptHash().ToAddress(NeoAddressVersion);
         }
 
+        public static string PublicKeyToAddress_obsolete(this byte[] public_key)
+        {
+            if (public_key.Length != CompressedPublicKeyLength)
+                throw new FormatException(nameof(public_key) + $" isn't encoded compressed public key. expected length={CompressedPublicKeyLength}, actual={public_key.Length}");
+            return public_key.CreateSignatureRedeemScript_obsolete().ToScriptHash().ToAddress(NeoAddressVersion);
+        }
+
         public static OwnerID PublicKeyToOwnerID(this byte[] public_key)
         {
             var bytes = Base58.Decode(public_key.PublicKeyToAddress());
+            return new OwnerID
+            {
+                Value = ByteString.CopyFrom(bytes),
+            };
+        }
+
+        public static OwnerID PublicKeyToOwnerID_obsolete(this byte[] public_key)
+        {
+            var bytes = Base58.Decode(public_key.PublicKeyToAddress_obsolete());
             return new OwnerID
             {
                 Value = ByteString.CopyFrom(bytes),

@@ -28,7 +28,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             {
                 Header = new Header
                 {
-                    OwnerId = key.ToOwnerID(),
+                    OwnerId = key.ToOwnerID_obsolete(),
                     ContainerId = cid,
                 },
                 Payload = ByteString.CopyFrom(payload),

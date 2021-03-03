@@ -28,7 +28,7 @@ namespace NeoFS.API.v2.Client
 
         public Accounting.Decimal GetSelfBalance()
         {
-            var w = key.ToOwnerID();
+            var w = key.ToOwnerID_obsolete();
             return GetBalance(w);
         }
     }

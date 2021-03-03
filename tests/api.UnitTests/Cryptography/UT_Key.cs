@@ -21,6 +21,14 @@ namespace NeoFS.API.v2.UnitTests.TestCryptography
         }
 
         [TestMethod]
+        public void TestCreateSignatureRedeemScript_obsolete()
+        {
+            var public_key = "03051c088573c77eec3d9abad0bf292fb092bb1ba32eb1cde776572199a3bc2f95".HexToBytes();
+            Assert.AreEqual("0c2103051c088573c77eec3d9abad0bf292fb092bb1ba32eb1cde776572199a3bc2f950b4195440d78", public_key.CreateSignatureRedeemScript_obsolete().ToHexString());
+            Assert.AreEqual("NPQxTX185Cw6T8RxCk9E2CEiDYxpk972Uj", public_key.CreateSignatureRedeemScript_obsolete().Sha256().RIPEMD160().ToAddress(NeoAddressVersion));
+        }
+
+        [TestMethod]
         public void TestPublicKeyDecompress()
         {
             var public_key = "0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1".HexToBytes();

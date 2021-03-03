@@ -22,7 +22,7 @@ namespace NeoFS.API.v2.UnitTests.TestContainer
                     Major = 1,
                     Minor = 2,
                 },
-                OwnerId = key.ToOwnerID(),
+                OwnerId = key.ToOwnerID_obsolete(),
                 Nonce = ByteString.CopyFrom("1234".HexToBytes()),
                 BasicAcl = 0u,
                 PlacementPolicy = new PlacementPolicy(1, null, null, null),

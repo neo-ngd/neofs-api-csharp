@@ -25,7 +25,7 @@ namespace NeoFS.API.v2.Client
             {
                 Body = new CreateRequest.Types.Body
                 {
-                    OwnerId = key.ToOwnerID(),
+                    OwnerId = key.ToOwnerID_obsolete(),
                     Expiration = expiration,
                 }
             };
@@ -41,7 +41,7 @@ namespace NeoFS.API.v2.Client
                 {
                     Id = resp.Body.Id,
                     SessionKey = resp.Body.SessionKey,
-                    OwnerId = key.ToOwnerID(),
+                    OwnerId = key.ToOwnerID_obsolete(),
                 }
             };
         }

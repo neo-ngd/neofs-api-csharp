@@ -38,7 +38,7 @@ namespace NeoFS.API.v2.Client
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
 
             container.Version = Refs.Version.SDKVersion();
-            if (container.OwnerId is null) container.OwnerId = key.ToOwnerID();
+            if (container.OwnerId is null) container.OwnerId = key.ToOwnerID_obsolete();
             var req = new PutRequest
             {
                 Body = new PutRequest.Types.Body
@@ -96,7 +96,7 @@ namespace NeoFS.API.v2.Client
 
         public List<ContainerID> ListSelfContainers(CancellationToken context, CallOptions options = null)
         {
-            var w = key.ToOwnerID();
+            var w = key.ToOwnerID_obsolete();
             return ListContainers(context, w, options);
         }
 

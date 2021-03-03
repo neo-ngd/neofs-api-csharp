@@ -22,7 +22,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var container = new Container.Container
             {
                 Version = Refs.Version.SDKVersion(),
-                OwnerId = key.ToOwnerID(),
+                OwnerId = key.ToOwnerID_obsolete(),
                 Nonce = Guid.NewGuid().ToByteString(),
                 BasicAcl = (uint)BasicAcl.PublicBasicRule,
                 PlacementPolicy = policy,
@@ -45,7 +45,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
-            var cid = ContainerID.FromBase58String("Ga3wR1Gxm6gckLCUNBz7pec3DtHvvAm7Sag6WZvZJaiv");
+            var cid = ContainerID.FromBase58String("8L8dfLDhaDJzXkyLAyWAMEkYxU4HvJ8cNMpKQDZ66Jpo");
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var container = client.GetContainer(source.Token, cid);
@@ -72,7 +72,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
-            var cids = client.ListContainers(source.Token, key.ToOwnerID());
+            var cids = client.ListContainers(source.Token, key.ToOwnerID_obsolete());
             Assert.AreEqual(1, cids.Count);
             Assert.AreEqual("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz", cids[0].ToBase58String());
         }

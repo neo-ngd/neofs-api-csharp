@@ -17,7 +17,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var token = client.CreateSession(source.Token, ulong.MaxValue);
-            Assert.AreEqual(key.ToOwnerID(), token.Body.OwnerId);
+            Assert.AreEqual(key.ToOwnerID_obsolete(), token.Body.OwnerId);
             Console.WriteLine($"id={token.Body.Id.ToUUID()}, key={token.Body.SessionKey.ToByteArray().ToHexString()}");
         }
     }

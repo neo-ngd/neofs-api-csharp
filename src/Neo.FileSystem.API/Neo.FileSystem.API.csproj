@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Copyright>2020-2021 The Neo Project</Copyright>
+    <AssemblyTitle>Neo.FileSystem.API</AssemblyTitle>
+    <Version>0.0.23</Version>
+    <Authors>The Neo Project</Authors>
+    <TargetFramework>net5.0</TargetFramework>
+    <PackageId>NeoFS.API</PackageId>
+    <PackageTags>NEO;NeoFS</PackageTags>
+    <PackageProjectUrl>https://github.com/neo-ngd/neofs-api-csharp</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/neo-ngd/neofs-api-csharp.git</RepositoryUrl>
+    <RootNamespace>Neo.FileSystem.API</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <Company>The Neo Project</Company>
+    <Description>NeoFS API for CSharp</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.15.3" />
+    <PackageReference Include="Grpc.Core" Version="2.36.0" />
+    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.8" />
+  </ItemGroup>
+
+</Project>

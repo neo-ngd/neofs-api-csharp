@@ -1,10 +1,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Refs;
-using NeoFS.API.v2.Object;
-using static NeoFS.API.v2.Object.SearchRequest.Types.Body.Types;
+using Neo.FileSystem.API.Refs;
+using Neo.FileSystem.API.Object;
+using static Neo.FileSystem.API.Object.SearchRequest.Types.Body.Types;
 using System;
 
-namespace NeoFS.API.v2.UnitTests.TestObject
+namespace Neo.FileSystem.API.UnitTests.TestObject
 {
     [TestClass]
     public class UT_Search

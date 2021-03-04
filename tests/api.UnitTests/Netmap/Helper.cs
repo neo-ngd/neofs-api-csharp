@@ -1,6 +1,6 @@
-using NeoFS.API.v2.Netmap;
+using Neo.FileSystem.API.Netmap;
 
-namespace NeoFS.API.v2.UnitTests.TestNetmap
+namespace Neo.FileSystem.API.UnitTests.TestNetmap
 {
     public static class Helper
     {

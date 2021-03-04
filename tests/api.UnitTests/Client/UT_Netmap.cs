@@ -1,9 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Cryptography;
+using Neo.FileSystem.API.Cryptography;
 using System;
 using System.Threading;
 
-namespace NeoFS.API.v2.UnitTests.FSClient
+namespace Neo.FileSystem.API.UnitTests.FSClient
 {
     [TestClass]
     public class UT_Netmap

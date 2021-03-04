@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Cryptography.Tz;
+using Neo.FileSystem.API.Cryptography.Tz;
 
-namespace NeoFS.API.v2.UnitTests.TestCryptography.Tz
+namespace Neo.FileSystem.API.UnitTests.TestCryptography.Tz
 {
     [TestClass]
     public class UT_Helper

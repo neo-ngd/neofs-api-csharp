@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\api\api.csproj" />
+    <ProjectReference Include="..\..\src\Neo.FileSystem.API\Neo.FileSystem.API.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Cryptography.Tz;
+using Neo.FileSystem.API.Cryptography.Tz;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NeoFS.API.v2.UnitTests.TestCryptography.Tz
+namespace Neo.FileSystem.API.UnitTests.TestCryptography.Tz
 {
     [TestClass]
     public class UT_GF127

@@ -1,11 +1,11 @@
 
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Refs;
-using NeoFS.API.v2.Object;
+using Neo.FileSystem.API.Refs;
+using Neo.FileSystem.API.Object;
 using System;
 
-namespace NeoFS.API.v2.UnitTests.TestObject
+namespace Neo.FileSystem.API.UnitTests.TestObject
 {
     [TestClass]
     public class UT_SplitID

@@ -1,9 +1,9 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Netmap;
+using Neo.FileSystem.API.Netmap;
 using System;
 
-namespace NeoFS.API.v2.UnitTests.TestNetmap
+namespace Neo.FileSystem.API.UnitTests.TestNetmap
 {
     public class FilterCase
     {

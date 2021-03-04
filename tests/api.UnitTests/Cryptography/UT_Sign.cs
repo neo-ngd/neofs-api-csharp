@@ -1,9 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Accounting;
-using NeoFS.API.v2.Session;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Accounting;
+using Neo.FileSystem.API.Session;
 
-namespace NeoFS.API.v2.UnitTests.TestCryptography
+namespace Neo.FileSystem.API.UnitTests.TestCryptography
 {
     [TestClass]
     public class UT_Sign

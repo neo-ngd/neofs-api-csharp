@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Cryptography.Tz;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Cryptography.Tz;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace NeoFS.API.v2.UnitTests.TestCryptography.Tz
+namespace Neo.FileSystem.API.UnitTests.TestCryptography.Tz
 {
     [TestClass]
     public class UT_TzHash

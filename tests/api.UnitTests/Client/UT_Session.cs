@@ -1,9 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Cryptography;
+using Neo.FileSystem.API.Cryptography;
 using System;
 using System.Threading;
 
-namespace NeoFS.API.v2.UnitTests.FSClient
+namespace Neo.FileSystem.API.UnitTests.FSClient
 {
     [TestClass]
     public class UT_Session
@@ -16,8 +16,13 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
+<<<<<<< HEAD
             var token = client.CreateSession(source.Token, ulong.MaxValue);
             Assert.AreEqual(key.ToOwnerID_obsolete(), token.Body.OwnerId);
+=======
+            var token = client.CreateSession(source.Token, ulong.MaxValue).Result;
+            Assert.AreEqual(key.ToOwnerID(), token.Body.OwnerId);
+>>>>>>> master
             Console.WriteLine($"id={token.Body.Id.ToUUID()}, key={token.Body.SessionKey.ToByteArray().ToHexString()}");
         }
     }

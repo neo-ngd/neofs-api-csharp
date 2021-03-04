@@ -1,18 +1,18 @@
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Client;
-using NeoFS.API.v2.Client.ObjectParams;
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Refs;
-using NeoFS.API.v2.Object;
-using V2Object = NeoFS.API.v2.Object.Object;
+using Neo.FileSystem.API.Client;
+using Neo.FileSystem.API.Client.ObjectParams;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Refs;
+using Neo.FileSystem.API.Object;
+using V2Object = Neo.FileSystem.API.Object.Object;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading;
 
-namespace NeoFS.API.v2.UnitTests.FSClient
+namespace Neo.FileSystem.API.UnitTests.FSClient
 {
     [TestClass]
     public class UT_Object
@@ -22,7 +22,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
         {
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            var cid = ContainerID.FromBase58String("RuzuV3RDstuVtWoDzsTsuNFiakaaGGN24EbNSUFGaiQ");
+            var cid = ContainerID.FromBase58String("BERrKi1LRXGy1cHMhssxa4wWuHCdkYYGXBzdLGmmAJLK");
             var payload = Encoding.ASCII.GetBytes("hello");
             var obj = new V2Object
             {
@@ -36,7 +36,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
@@ -56,7 +56,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
@@ -90,7 +90,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
@@ -109,11 +109,11 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectHeader(source2.Token, new ObjectHeaderParams { Address = address, Short = false }, new CallOptions { Ttl = 2, Session = session });
+            var o = client.GetObjectHeader(source2.Token, new ObjectHeaderParams { Address = address, Short = false }, new CallOptions { Ttl = 2, Session = session }).Result;
             Assert.AreEqual(oid, o.ObjectId);
         }
 
@@ -128,7 +128,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
@@ -147,11 +147,11 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectPayloadRangeHash(source2.Token, new RangeChecksumParams { Address = address, Ranges = new List<Object.Range> { new Object.Range { Offset = 0, Length = 3 } }, Salt = new byte[] { 0x00 }, Type = ChecksumType.Sha256 }, new CallOptions { Ttl = 2, Session = session });
+            var o = client.GetObjectPayloadRangeHash(source2.Token, new RangeChecksumParams { Address = address, Ranges = new List<Object.Range> { new Object.Range { Offset = 0, Length = 3 } }, Salt = new byte[] { 0x00 }, Type = ChecksumType.Sha256 }, new CallOptions { Ttl = 2, Session = session }).Result;
             Assert.AreEqual(1, o.Count);
             Assert.AreEqual(Encoding.ASCII.GetBytes("hello")[..3].Sha256().ToHexString(), o[0].ToHexString());
         }
@@ -165,7 +165,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));

@@ -1,12 +1,12 @@
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Container;
-using NeoFS.API.v2.Netmap;
-using NeoFS.API.v2.Refs;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Container;
+using Neo.FileSystem.API.Netmap;
+using Neo.FileSystem.API.Refs;
 using System;
 
-namespace NeoFS.API.v2.UnitTests.TestContainer
+namespace Neo.FileSystem.API.UnitTests.TestContainer
 {
     [TestClass]
     public class UT_Container

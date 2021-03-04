@@ -1,9 +1,9 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Netmap;
+using Neo.FileSystem.API.Netmap;
 using System;
 
-namespace NeoFS.API.v2.UnitTests.TestNetmap
+namespace Neo.FileSystem.API.UnitTests.TestNetmap
 {
     [TestClass]
     public class UT_Clause
@@ -11,7 +11,7 @@ namespace NeoFS.API.v2.UnitTests.TestNetmap
         [TestMethod]
         public void TestString()
         {
-            var c = NeoFS.API.v2.Netmap.Clause.Same;
+            var c = Neo.FileSystem.API.Netmap.Clause.Same;
             Assert.AreEqual("Same", c.ToString());
         }
     }

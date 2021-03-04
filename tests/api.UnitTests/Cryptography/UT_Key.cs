@@ -2,11 +2,11 @@ using System;
 using System.Linq;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Cryptography;
-using static NeoFS.API.v2.Cryptography.Helper;
-using static NeoFS.API.v2.Cryptography.KeyExtension;
+using Neo.FileSystem.API.Cryptography;
+using static Neo.FileSystem.API.Cryptography.Helper;
+using static Neo.FileSystem.API.Cryptography.KeyExtension;
 
-namespace NeoFS.API.v2.UnitTests.TestCryptography
+namespace Neo.FileSystem.API.UnitTests.TestCryptography
 {
     [TestClass]
     public class UT_Key

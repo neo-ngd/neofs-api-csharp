@@ -48,10 +48,10 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectGet()
         {
-            var host = "localhost:8080";
+            var host = "st1.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            var cid = ContainerID.FromBase58String("G21LEPXRVRc6S4yrzBN94jzNE5MCXGczEgNZks4brTLb");
-            var oid = ObjectID.FromBase58String("BcpvJEFXUdyNQHzs1EuotuTsnSdC2NMwzpbWEFyh78hr");
+            var cid = ContainerID.FromBase58String("6pJtLUnGqDxE2EitZYLsDzsfTDVegD6BrRUn8QAFZWyt");
+            var oid = ObjectID.FromBase58String("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
             var address = new Address(cid, oid);
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();

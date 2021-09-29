@@ -70,6 +70,18 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography.Tz
         }
 
         [TestMethod]
+        public void TestBenchmarkInCLang() // cost 1 seconds
+        {
+            var n = 3000000;
+            var temp = new byte[n];
+
+            TzHash tz = new TzHash();
+            var hash = tz.ComputeHash(temp);
+
+            Assert.AreEqual("601b0a3b8a51c34e3028245e88112aea0fd7571f9de28d6a81f31e58eec1e3310fd7571f9de28d6a81f31e58eec1e3317fb5a404b194d99b33ce18ef5592ec88", hash.ToHexString());
+        }
+
+        [TestMethod]
         public void TestHomomorphism()
         {
             using RandomNumberGenerator rng = RandomNumberGenerator.Create();

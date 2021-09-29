@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
 
@@ -10,6 +11,8 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         public const int TzHashLength = 64;
         private GF127[] x;
         public override int HashSize => TzHashLength;
+
+        private ulong[] raw;
 
         public TzHash()
         {
@@ -31,16 +34,6 @@ namespace Neo.FileStorage.API.Cryptography.Tz
             this.x[3] = new GF127(1, 0);
         }
 
-        public byte[] ToByteArray()
-        {
-            var buff = new byte[HashSize];
-            for (int i = 0; i < 4; i++)
-            {
-                Array.Copy(this.x[i].ToByteArray(), 0, buff, i * 16, 16);
-            }
-            return buff;
-        }
-
         [SecurityCritical]
         protected override void HashCore(byte[] array, int ibStart, int cbSize)
         {
@@ -53,19 +46,57 @@ namespace Neo.FileStorage.API.Cryptography.Tz
             return HashValue = ToByteArray();
         }
 
+        //[SecurityCritical]
+        //private int HashData(byte[] data)
+        //{
+        //    var n = data.Length;
+        //    for (int i = 0; i < n; i++)
+        //    {
+        //        for (int j = 7; j >= 0; j--)
+        //        {
+        //            MulBitRight(ref x[0], ref x[1], ref x[2], ref x[3], (data[i] & (1 << j)) != 0);
+        //        }
+        //    }
+        //    return n;
+        //}
+
         [SecurityCritical]
         private int HashData(byte[] data)
         {
             var n = data.Length;
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 7; j >= 0; j--)
-                {
-                    MulBitRight(ref x[0], ref x[1], ref x[2], ref x[3], (data[i] & (1 << j)) != 0);
-                }
-            }
+            this.raw = new ulong[8];
+            HashExternal(data, n, ref this.raw[0]);
             return n;
         }
+
+        //public byte[] ToByteArray()
+        //{
+        //    var buff = new byte[HashSize];
+        //    for (int i = 0; i < 4; i++)
+        //    {
+        //        Array.Copy(this.x[i].ToByteArray(), 0, buff, i * 16, 16);
+        //    }
+        //    return buff;
+        //}
+
+        private byte[] ToByteArray()
+        {
+            var n = this.raw.Length;
+            var buff = new byte[8 * n];
+            for (int i = 0; i < n; i++)
+            {
+                var b = BitConverter.GetBytes(this.raw[i]);
+                if (BitConverter.IsLittleEndian)
+                {
+                    Array.Reverse(b);
+                }
+                Array.Copy(b, 0, buff, i * 8, 8);
+            }
+            return buff;
+        }
+
+        [DllImport("libTzHashInC", EntryPoint = "hash", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        private static extern void HashExternal(byte[] data, int n, ref ulong sb);
 
         // MulBitRight() multiply A (if the bit is 0) or B (if the bit is 1) on the right side
         private void MulBitRight(ref GF127 c00, ref GF127 c01, ref GF127 c10, ref GF127 c11, bool bit)
